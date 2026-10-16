@@ -48,14 +48,14 @@
         .bg-warmSand\/30 { background: rgba(255, 242, 204, .3); }
         .bg-warmSand\/50 { background: rgba(255, 242, 204, .5); }
         .bg-earthBrown { background: var(--brown); }
-        .bg-cream\/90 { background: rgba(253, 251, 247, .9); }
+        .bg-cream\/90 { background: var(--cream); }
         .border-\[\#EBE5D8\] { border-color: var(--line); }
         .border-goldAccent\/50 { border-color: rgba(212, 175, 55, .5); }
         .border-dashed { border-style: dashed; }
         .border-y { border-top: 1px solid; border-bottom: 1px solid; }
         .border-b { border-bottom: 1px solid; }
         .border-2 { border-width: 2px; border-style: solid; }
-        .sticky { position: sticky; }
+        .sticky { position: sticky; isolation: isolate; }
         .top-0 { top: 0; }
         .z-50 { z-index: 50; }
         .backdrop-blur-md { backdrop-filter: blur(12px); }
@@ -166,17 +166,21 @@
         .cover-hope { margin: 1.4rem 0 0; color: var(--soft-amber, #c59b27); font-size: .85rem; letter-spacing: .18em; }
         .cover-book::after { content: "✦"; position: absolute; top: 2.1rem; right: 3rem; color: rgba(212, 175, 55, .65); font-size: 1.5rem; }
         .breeze-pattern { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-        .breeze-item { position: absolute; display: block; opacity: .2; user-select: none; will-change: transform; }
-        .breeze-flower { color: #c59b27; font-size: 1.25rem; }
-        .breeze-butterfly { font-size: 1.3rem; filter: saturate(.7); }
-        .flower-one { top: 18%; left: 4%; animation: breeze-one 14s ease-in-out infinite; }
-        .flower-two { top: 68%; left: 88%; font-size: 1rem; animation: breeze-two 18s ease-in-out infinite; }
-        .flower-three { top: 42%; left: 94%; animation: breeze-three 16s ease-in-out infinite; }
-        .butterfly-one { top: 28%; left: 91%; animation: breeze-two 20s ease-in-out infinite; }
-        .butterfly-two { top: 78%; left: 7%; font-size: 1rem; animation: breeze-three 23s ease-in-out infinite reverse; }
-        @keyframes breeze-one { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); } 50% { transform: translate3d(42px, 24px, 0) rotate(18deg); } }
-        @keyframes breeze-two { 0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); } 50% { transform: translate3d(-52px, 38px, 0) rotate(-20deg); } }
-        @keyframes breeze-three { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(-28px, -36px, 0) rotate(15deg); } }
+        .breeze-item { position: absolute; display: block; opacity: var(--breeze-opacity, .32); user-select: none; will-change: transform, opacity, filter; transition: opacity .9s ease, filter .9s ease; }
+        .breeze-flower { color: #e8a928; font-size: 2.1rem; filter: saturate(1.15); text-shadow: 0 3px 12px rgba(232, 169, 40, .2); }
+        .breeze-butterfly { font-size: 2.15rem; filter: hue-rotate(var(--breeze-hue, 0deg)) saturate(1.25) drop-shadow(0 3px 8px rgba(92, 64, 51, .12)); }
+        .flower-one { top: 12%; left: 2%; color: #f0b34b; animation: breeze-one 14s ease-in-out infinite; }
+        .flower-two { top: 66%; left: 1%; color: #e99b8d; font-size: 1.7rem; animation: breeze-two 18s ease-in-out infinite; }
+        .flower-three { top: 41%; right: 1%; color: #8fc9c1; animation: breeze-three 16s ease-in-out infinite; }
+        .flower-four { right: 3%; bottom: 12%; color: #f0b34b; font-size: 2.5rem; animation: breeze-one 19s ease-in-out infinite reverse; }
+        .flower-five { bottom: 4%; left: 1%; color: #e99b8d; font-size: 1.8rem; animation: breeze-three 17s ease-in-out infinite; }
+        .butterfly-one { top: 24%; right: 2%; color: #6eafc7; animation: breeze-two 20s ease-in-out infinite; }
+        .butterfly-two { bottom: 17%; left: 4%; font-size: 1.8rem; animation: breeze-three 23s ease-in-out infinite reverse; }
+        .butterfly-three { top: 4%; right: 22%; color: #e99b8d; font-size: 1.85rem; animation: breeze-one 21s ease-in-out infinite; }
+        .butterfly-four { right: 8%; bottom: 3%; color: #8fc9c1; font-size: 2.4rem; animation: breeze-two 24s ease-in-out infinite reverse; }
+        @keyframes breeze-one { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); } 35% { transform: translate3d(18px, 10px, 0) rotate(5deg); } 70% { transform: translate3d(34px, 20px, 0) rotate(15deg); } }
+        @keyframes breeze-two { 0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); } 35% { transform: translate3d(-22px, 14px, 0) rotate(-5deg); } 70% { transform: translate3d(-42px, 26px, 0) rotate(-16deg); } }
+        @keyframes breeze-three { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 35% { transform: translate3d(-12px, -14px, 0) rotate(7deg); } 70% { transform: translate3d(-24px, -26px, 0) rotate(13deg); } }
         .photo-gallery { display: grid; gap: .75rem; text-align: left; }
         .photo-gallery figure { margin: 0; }
         .photo-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
@@ -246,11 +250,18 @@
 </head>
 <body class="bg-cream text-earthBrown font-sans antialiased selection:bg-warmSand selection:text-earthBrown">
     <div class="breeze-pattern" aria-hidden="true">
-        <span class="breeze-item breeze-flower flower-one">✿</span>
-        <span class="breeze-item breeze-flower flower-two">✦</span>
-        <span class="breeze-item breeze-butterfly butterfly-one">🦋</span>
-        <span class="breeze-item breeze-butterfly butterfly-two">🦋</span>
-        <span class="breeze-item breeze-flower flower-three">❀</span>
+        <span class="breeze-item breeze-flower">✿</span>
+        <span class="breeze-item breeze-flower">❀</span>
+        <span class="breeze-item breeze-flower">✾</span>
+        <span class="breeze-item breeze-flower">❁</span>
+        <span class="breeze-item breeze-flower">✽</span>
+        <span class="breeze-item breeze-flower">✿</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
     </div>
     <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-[#EBE5D8]">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -505,6 +516,41 @@
                 surface.style.setProperty('--spot-x', `${event.clientX - bounds.left}px`);
                 surface.style.setProperty('--spot-y', `${event.clientY - bounds.top}px`);
             });
+        });
+
+        const breezeItems = Array.from(document.querySelectorAll('.breeze-item'));
+        const breezeColors = ['#d8b968', '#dda59f', '#8ebdc3', '#a3c3a7', '#cba6c1', '#e5c985', '#9aaed0', '#d29aa7', '#9fc5b0', '#d7a875', '#8fb6a9', '#c5a4d0', '#e0b48f', '#91b5ce', '#d49baf', '#b8a7d1'];
+        const breezePaths = ['breeze-one', 'breeze-two', 'breeze-three'];
+        const butterflyHues = [-20, 35, 85, 145, 205, 265];
+        let butterflyIndex = 0;
+        const leftSlots = [12, 22, 32, 42, 52, 62, 72, 82].sort(() => Math.random() - .5);
+        const rightSlots = [14, 24, 34, 44, 54, 64, 74, 84].sort(() => Math.random() - .5);
+        breezeColors.sort(() => Math.random() - .5);
+        breezeItems.forEach((item, index) => {
+            const isRightEdge = index % 2 === 0;
+            const edgeOffset = `${Math.round(Math.random() * 2) + 1}%`;
+            const slotIndex = Math.floor(index / 2);
+            const verticalSlots = isRightEdge ? rightSlots : leftSlots;
+            const verticalOffset = `${verticalSlots[slotIndex]}%`;
+            item.style.left = isRightEdge ? 'auto' : edgeOffset;
+            item.style.right = isRightEdge ? edgeOffset : 'auto';
+            item.style.top = verticalOffset;
+            item.style.bottom = 'auto';
+            item.style.color = breezeColors[index % breezeColors.length];
+            const isFlower = item.classList.contains('breeze-flower');
+            item.style.fontSize = isFlower
+                ? `${(1.55 + Math.random() * .55).toFixed(2)}rem`
+                : `${(1.15 + Math.random() * .7).toFixed(2)}rem`;
+            item.style.animationName = breezePaths[Math.floor(Math.random() * breezePaths.length)];
+            item.style.animationDuration = `${Math.round(16 + Math.random() * 12)}s`;
+            item.style.animationDelay = `-${Math.round(Math.random() * 12)}s`;
+            item.style.setProperty('--breeze-opacity', isFlower
+                ? (0.2 + Math.random() * .1).toFixed(2)
+                : (0.12 + Math.random() * .1).toFixed(2));
+            const hue = item.classList.contains('breeze-butterfly')
+                ? butterflyHues[butterflyIndex++]
+                : Math.round(Math.random() * 70 - 35);
+            item.style.setProperty('--breeze-hue', `${hue}deg`);
         });
 
         const sections = Array.from(document.querySelectorAll('main > section'));
