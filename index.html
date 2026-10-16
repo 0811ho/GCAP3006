@@ -31,7 +31,7 @@
 
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; background: var(--cream); color: var(--brown); font-family: Inter, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.5; }
+        body { margin: 0; background: var(--cream); color: var(--brown); font-family: Inter, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.5; background-image: radial-gradient(circle at 50% -10%, rgba(255, 255, 255, .95), transparent 38%), linear-gradient(135deg, rgba(244, 235, 225, .45), transparent 42%); }
         a { color: inherit; text-decoration: none; }
         p, h1, h2, h3 { margin-top: 0; }
         p { margin-bottom: 1rem; }
@@ -123,8 +123,9 @@
         .tracking-\[0\.3em\] { letter-spacing: .3em; }
         .uppercase { text-transform: uppercase; }
         .inline-block { display: inline-block; }
-        .paper-card { background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 25px -5px rgba(92, 64, 51, .05), 0 8px 10px -6px rgba(92, 64, 51, .05); }
-        .cover-texture { background-image: radial-gradient(rgba(212, 175, 55, .16) 1px, transparent 1px); background-size: 18px 18px; }
+        .paper-card { background: rgba(255, 255, 255, .9); border: 1px solid var(--line); box-shadow: 0 10px 25px -5px rgba(92, 64, 51, .05), 0 8px 10px -6px rgba(92, 64, 51, .05); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .paper-card:hover { transform: translateY(-3px); border-color: rgba(212, 175, 55, .65); box-shadow: 0 16px 30px -8px rgba(92, 64, 51, .16), 0 0 0 1px rgba(212, 175, 55, .08); }
+        .cover-texture { background-image: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, .8), transparent 30%), radial-gradient(rgba(212, 175, 55, .16) 1px, transparent 1px); background-size: auto, 18px 18px; }
         .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1); }
         .gap-4 { gap: 1rem; }
         .gap-6 { gap: 1.5rem; }
@@ -146,6 +147,8 @@
         .cover-recipient strong { color: var(--brown); font-weight: 700; }
         .cover-rule { opacity: .8; }
         .cover-note { letter-spacing: .2em; }
+        .cover-hope { margin: 1.4rem 0 0; color: var(--soft-amber, #c59b27); font-size: .85rem; letter-spacing: .18em; }
+        .cover-book::after { content: "✦"; position: absolute; top: 2.1rem; right: 3rem; color: rgba(212, 175, 55, .65); font-size: 1.5rem; }
         .photo-gallery { display: grid; gap: .75rem; text-align: left; }
         .photo-gallery figure { margin: 0; }
         .photo-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
@@ -189,6 +192,7 @@
             .cover-corner-top { top: 20px; left: 20px; }
             .cover-corner-bottom { right: 20px; bottom: 20px; }
             .cover-note { letter-spacing: .1em; }
+            .cover-book::after { top: 1.5rem; right: 1.75rem; }
             .photo-viewer { padding: 5rem 1rem 4rem; }
             .photo-viewer img { max-width: 96vw; max-height: 70vh; }
             .viewer-arrow { width: 2.25rem; height: 2.25rem; }
@@ -233,6 +237,7 @@
                 <p class="cover-recipient text-xl md:text-2xl text-stone-600 mb-10">獻給<br><strong>Elaine Chan 女士</strong></p>
                 <div class="cover-rule w-24 h-px bg-goldAccent mx-auto mb-6"></div>
                 <p class="cover-note text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
+                <p class="cover-hope">願平安與盼望同行</p>
             </div>
         </section>
 
