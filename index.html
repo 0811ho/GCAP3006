@@ -165,9 +165,10 @@
         .cover-note { letter-spacing: .2em; }
         .cover-hope { margin: 1.4rem 0 0; color: var(--soft-amber, #c59b27); font-size: .85rem; letter-spacing: .18em; }
         .cover-book::after { content: "✦"; position: absolute; top: 2.1rem; right: 3rem; color: rgba(212, 175, 55, .65); font-size: 1.5rem; }
-        .breeze-pattern { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-        .breeze-item { position: absolute; display: block; opacity: var(--breeze-opacity, .32); user-select: none; will-change: transform, opacity, filter; transition: opacity .9s ease, filter .9s ease; }
-        .breeze-flower { color: #e8a928; font-size: 2.1rem; filter: saturate(1.15); text-shadow: 0 3px 12px rgba(232, 169, 40, .2); }
+        .breeze-pattern { position: static; z-index: 0; pointer-events: none; }
+        .breeze-item { position: absolute; display: block; opacity: 0; user-select: none; will-change: transform, opacity, filter; transition: opacity .9s ease, filter .9s ease; animation-duration: 18s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-play-state: paused; }
+        .breeze-item.is-visible { opacity: var(--breeze-opacity, .32); animation-play-state: running; }
+        .breeze-flower { color: #e8a928; font-size: 2.1rem; font-weight: 700; filter: saturate(1.3); text-shadow: 0 3px 14px rgba(232, 169, 40, .34); }
         .breeze-butterfly { font-size: 2.15rem; filter: hue-rotate(var(--breeze-hue, 0deg)) saturate(1.25) drop-shadow(0 3px 8px rgba(92, 64, 51, .12)); }
         .flower-one { top: 12%; left: 2%; color: #f0b34b; animation: breeze-one 14s ease-in-out infinite; }
         .flower-two { top: 66%; left: 1%; color: #e99b8d; font-size: 1.7rem; animation: breeze-two 18s ease-in-out infinite; }
@@ -256,6 +257,14 @@
         <span class="breeze-item breeze-flower">❁</span>
         <span class="breeze-item breeze-flower">✽</span>
         <span class="breeze-item breeze-flower">✿</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
+        <span class="breeze-item breeze-flower">✿</span>
+        <span class="breeze-item breeze-flower">❀</span>
+        <span class="breeze-item breeze-flower">✾</span>
+        <span class="breeze-item breeze-flower">❁</span>
+        <span class="breeze-item breeze-butterfly">🦋</span>
         <span class="breeze-item breeze-butterfly">🦋</span>
         <span class="breeze-item breeze-butterfly">🦋</span>
         <span class="breeze-item breeze-butterfly">🦋</span>
@@ -519,12 +528,12 @@
         });
 
         const breezeItems = Array.from(document.querySelectorAll('.breeze-item'));
-        const breezeColors = ['#d8b968', '#dda59f', '#8ebdc3', '#a3c3a7', '#cba6c1', '#e5c985', '#9aaed0', '#d29aa7', '#9fc5b0', '#d7a875', '#8fb6a9', '#c5a4d0', '#e0b48f', '#91b5ce', '#d49baf', '#b8a7d1'];
+        const breezeColors = ['#d8b968', '#dda59f', '#8ebdc3', '#a3c3a7', '#cba6c1', '#e5c985', '#9aaed0', '#d29aa7', '#9fc5b0', '#d7a875', '#8fb6a9', '#c5a4d0', '#e0b48f', '#91b5ce', '#d49baf', '#b8a7d1', '#d6b28a', '#9ab9a4', '#c59bbd', '#82b1c4'];
         const breezePaths = ['breeze-one', 'breeze-two', 'breeze-three'];
-        const butterflyHues = [-20, 35, 85, 145, 205, 265];
+        const butterflyHues = [-20, 20, 60, 100, 140, 180, 220, 260, 300, 340];
         let butterflyIndex = 0;
-        const leftSlots = [12, 22, 32, 42, 52, 62, 72, 82].sort(() => Math.random() - .5);
-        const rightSlots = [14, 24, 34, 44, 54, 64, 74, 84].sort(() => Math.random() - .5);
+        const leftSlots = [10, 19, 28, 37, 46, 55, 64, 73, 82, 91].sort(() => Math.random() - .5);
+        const rightSlots = [12, 21, 30, 39, 48, 57, 66, 75, 84, 93].sort(() => Math.random() - .5);
         breezeColors.sort(() => Math.random() - .5);
         breezeItems.forEach((item, index) => {
             const isRightEdge = index % 2 === 0;
@@ -539,19 +548,43 @@
             item.style.color = breezeColors[index % breezeColors.length];
             const isFlower = item.classList.contains('breeze-flower');
             item.style.fontSize = isFlower
-                ? `${(1.55 + Math.random() * .55).toFixed(2)}rem`
+                ? `${(1.85 + Math.random() * .65).toFixed(2)}rem`
                 : `${(1.15 + Math.random() * .7).toFixed(2)}rem`;
             item.style.animationName = breezePaths[Math.floor(Math.random() * breezePaths.length)];
             item.style.animationDuration = `${Math.round(16 + Math.random() * 12)}s`;
             item.style.animationDelay = `-${Math.round(Math.random() * 12)}s`;
             item.style.setProperty('--breeze-opacity', isFlower
-                ? (0.2 + Math.random() * .1).toFixed(2)
+                ? (0.3 + Math.random() * .12).toFixed(2)
                 : (0.12 + Math.random() * .1).toFixed(2));
             const hue = item.classList.contains('breeze-butterfly')
                 ? butterflyHues[butterflyIndex++]
                 : Math.round(Math.random() * 70 - 35);
             item.style.setProperty('--breeze-hue', `${hue}deg`);
         });
+
+        function positionBreezeItems() {
+            const pageHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+            const slotCount = Math.ceil(breezeItems.length / 2);
+            breezeItems.forEach((item, index) => {
+                const slotIndex = Math.floor(index / 2);
+                const slotHeight = pageHeight / (slotCount + 1);
+                const jitter = Math.round(Math.random() * 56 - 28);
+                item.style.top = `${Math.max(150, Math.min(pageHeight - 140, slotHeight * (slotIndex + 1) + jitter))}px`;
+            });
+        }
+
+        positionBreezeItems();
+        window.addEventListener('load', positionBreezeItems, { once: true });
+
+        const breezeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    breezeObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '160px 0px' });
+        breezeItems.forEach((item) => breezeObserver.observe(item));
 
         const sections = Array.from(document.querySelectorAll('main > section'));
         const revealObserver = new IntersectionObserver((entries) => {
