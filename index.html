@@ -132,6 +132,9 @@
         .space-y-5 > * + * { margin-top: 1.25rem; }
         .border-t { border-top: 1px solid; }
         .hover\:text-goldAccent:hover { color: var(--gold); }
+        header > div > a { font-size: 1.2rem; font-weight: 800; letter-spacing: .06em; }
+        header nav { gap: 2rem; }
+        header nav a { padding: .35rem .1rem; color: var(--stone-600); font-size: 1rem; font-weight: 700; letter-spacing: .04em; }
         .cover-book { border: 1px solid rgba(92, 64, 51, .2); outline: 1px solid rgba(212, 175, 55, .55); outline-offset: -14px; }
         .cover-corner { position: absolute; width: 42px; height: 42px; border-color: var(--gold); opacity: .8; }
         .cover-corner-top { top: 28px; left: 28px; border-top: 2px solid; border-left: 2px solid; }
@@ -145,8 +148,21 @@
         .cover-note { letter-spacing: .2em; }
         .photo-gallery { display: grid; gap: .75rem; text-align: left; }
         .photo-gallery figure { margin: 0; }
+        .photo-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
         .photo-gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: .5rem; }
         .photo-gallery figcaption { margin-top: .4rem; color: var(--stone-500); font-size: .75rem; }
+        .photo-viewer[hidden] { display: none; }
+        .photo-viewer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 5rem 5rem 4rem; background: rgba(31, 24, 20, .94); overflow: hidden; }
+        .photo-viewer img { max-width: 90vw; max-height: 78vh; object-fit: contain; transition: transform .2s ease; border-radius: .35rem; }
+        .viewer-close, .viewer-toolbar button, .viewer-arrow { border: 1px solid rgba(253, 251, 247, .35); color: var(--cream); background: rgba(92, 64, 51, .85); cursor: pointer; }
+        .viewer-close { position: absolute; top: 1.25rem; right: 1.5rem; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-size: 1.75rem; line-height: 1; }
+        .viewer-toolbar { position: absolute; top: 1.25rem; left: 50%; display: flex; gap: .35rem; transform: translateX(-50%); }
+        .viewer-toolbar button { min-width: 2.5rem; height: 2.5rem; padding: 0 .75rem; border-radius: .4rem; font-size: 1rem; }
+        .viewer-arrow { position: absolute; top: 50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; transform: translateY(-50%); font-size: 2rem; line-height: 1; }
+        .viewer-prev { left: 1.25rem; }
+        .viewer-next { right: 1.25rem; }
+        .photo-viewer p { position: absolute; right: 0; bottom: 1.25rem; left: 0; margin: 0; color: var(--cream); text-align: center; font-size: .9rem; }
+        .viewer-open { overflow: hidden; }
 
         @media (min-width: 640px) {
             .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -167,11 +183,17 @@
             nav { display: none; }
             .p-12 { padding: 2rem 1.25rem; }
             .text-4xl { font-size: 2rem; }
+            header > div > a { font-size: 1.05rem; }
             .cover-book { padding: 4.5rem 2rem; outline-offset: -10px; }
             .cover-corner { width: 28px; height: 28px; }
             .cover-corner-top { top: 20px; left: 20px; }
             .cover-corner-bottom { right: 20px; bottom: 20px; }
             .cover-note { letter-spacing: .1em; }
+            .photo-viewer { padding: 5rem 1rem 4rem; }
+            .photo-viewer img { max-width: 96vw; max-height: 70vh; }
+            .viewer-arrow { width: 2.25rem; height: 2.25rem; }
+            .viewer-prev { left: .5rem; }
+            .viewer-next { right: .5rem; }
         }
 
         .paper-card {
@@ -323,11 +345,15 @@
                     <h3 class="font-bold text-earthBrown mb-3">我們的合照</h3>
                     <div class="photo-gallery">
                         <figure>
-                            <img src="group-photo-1.jpeg" alt="同學與參加者的大合照" loading="lazy">
+                            <button class="photo-trigger" type="button" data-photo="group-photo-1.jpeg" data-caption="一起留下的珍貴回憶" aria-label="放大大合照">
+                                <img src="group-photo-1.jpeg" alt="同學與參加者的大合照" loading="lazy">
+                            </button>
                             <figcaption>一起留下的珍貴回憶</figcaption>
                         </figure>
                         <figure>
-                            <img src="group-photo-2.jpeg" alt="同學與 Elaine Chan 女士的合照" loading="lazy">
+                            <button class="photo-trigger" type="button" data-photo="group-photo-2.jpeg" data-caption="訪問後的歡樂時光" aria-label="放大訪問後合照">
+                                <img src="group-photo-2.jpeg" alt="同學與 Elaine Chan 女士的合照" loading="lazy">
+                            </button>
                             <figcaption>訪問後的歡樂時光</figcaption>
                         </figure>
                     </div>
@@ -360,5 +386,72 @@
             </div>
         </section>
     </main>
+
+    <div class="photo-viewer" id="photoViewer" hidden>
+        <button class="viewer-close" id="viewerClose" type="button" aria-label="關閉圖片預覽">×</button>
+        <div class="viewer-toolbar" aria-label="圖片縮放控制">
+            <button id="zoomOut" type="button" aria-label="縮小圖片">−</button>
+            <button id="zoomReset" type="button">重設</button>
+            <button id="zoomIn" type="button" aria-label="放大圖片">＋</button>
+        </div>
+        <button class="viewer-arrow viewer-prev" id="viewerPrev" type="button" aria-label="上一張圖片">‹</button>
+        <img id="viewerImage" src="" alt="">
+        <button class="viewer-arrow viewer-next" id="viewerNext" type="button" aria-label="下一張圖片">›</button>
+        <p id="viewerCaption"></p>
+    </div>
+
+    <script>
+        const photoButtons = Array.from(document.querySelectorAll('.photo-trigger'));
+        const viewer = document.getElementById('photoViewer');
+        const viewerImage = document.getElementById('viewerImage');
+        const viewerCaption = document.getElementById('viewerCaption');
+        let activePhoto = 0;
+        let zoomLevel = 1;
+
+        function showPhoto(index) {
+            activePhoto = (index + photoButtons.length) % photoButtons.length;
+            const button = photoButtons[activePhoto];
+            viewerImage.src = button.dataset.photo;
+            viewerImage.alt = button.querySelector('img').alt;
+            viewerCaption.textContent = button.dataset.caption;
+            zoomLevel = 1;
+            viewerImage.style.transform = 'scale(1)';
+        }
+
+        function changeZoom(amount) {
+            zoomLevel = Math.min(3, Math.max(.6, zoomLevel + amount));
+            viewerImage.style.transform = `scale(${zoomLevel})`;
+        }
+
+        photoButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                showPhoto(index);
+                viewer.hidden = false;
+                document.body.classList.add('viewer-open');
+            });
+        });
+
+        document.getElementById('viewerClose').addEventListener('click', () => {
+            viewer.hidden = true;
+            document.body.classList.remove('viewer-open');
+        });
+        document.getElementById('zoomIn').addEventListener('click', () => changeZoom(.25));
+        document.getElementById('zoomOut').addEventListener('click', () => changeZoom(-.25));
+        document.getElementById('zoomReset').addEventListener('click', () => {
+            zoomLevel = 1;
+            viewerImage.style.transform = 'scale(1)';
+        });
+        document.getElementById('viewerPrev').addEventListener('click', () => showPhoto(activePhoto - 1));
+        document.getElementById('viewerNext').addEventListener('click', () => showPhoto(activePhoto + 1));
+        viewer.addEventListener('click', (event) => {
+            if (event.target === viewer) document.getElementById('viewerClose').click();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (viewer.hidden) return;
+            if (event.key === 'Escape') document.getElementById('viewerClose').click();
+            if (event.key === 'ArrowLeft') showPhoto(activePhoto - 1);
+            if (event.key === 'ArrowRight') showPhoto(activePhoto + 1);
+        });
+    </script>
 </body>
 </html>
