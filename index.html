@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>致 Elaine Chan 女士：歲月如歌．恩典足跡</title>
+    <meta name="description" content="一份由同學們親手整理，獻給 Elaine Chan 女士的訪談紀念冊。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elainechan.pages.dev/">
+    <meta property="og:title" content="致 Elaine Chan 女士：歲月如歌．恩典足跡">
+    <meta property="og:description" content="一份由同學們親手整理的故事與祝福。">
+    <meta property="og:image" content="https://elainechan.pages.dev/cover.svg">
+    <meta property="og:image:alt" content="歲月如歌．恩典足跡，獻給 Elaine Chan 女士">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="致 Elaine Chan 女士：歲月如歌．恩典足跡">
+    <meta name="twitter:description" content="一份由同學們親手整理的故事與祝福。">
+    <meta name="twitter:image" content="https://elainechan.pages.dev/cover.svg">
     <style>
         :root {
             --cream: #fdfbf7;
@@ -130,6 +143,10 @@
         .cover-recipient strong { color: var(--brown); font-weight: 700; }
         .cover-rule { opacity: .8; }
         .cover-note { letter-spacing: .2em; }
+        .photo-gallery { display: grid; gap: .75rem; text-align: left; }
+        .photo-gallery figure { margin: 0; }
+        .photo-gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: .5rem; }
+        .photo-gallery figcaption { margin-top: .4rem; color: var(--stone-500); font-size: .75rem; }
 
         @media (min-width: 640px) {
             .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -304,8 +321,16 @@
                 </div>
                 <div class="paper-card rounded-xl p-6 text-center">
                     <h3 class="font-bold text-earthBrown mb-3">我們的合照</h3>
-                    <div class="h-28 border-2 border-dashed border-goldAccent/60 flex items-center justify-center text-xs text-stone-400">合照位置<br>待加入</div>
-                    <p class="text-stone-400 text-xs mt-3">請替換成訪問後的合照</p>
+                    <div class="photo-gallery">
+                        <figure>
+                            <img src="group-photo-1.jpeg" alt="同學與參加者的大合照" loading="lazy">
+                            <figcaption>一起留下的珍貴回憶</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="group-photo-2.jpeg" alt="同學與 Elaine Chan 女士的合照" loading="lazy">
+                            <figcaption>訪問後的歡樂時光</figcaption>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </section>
