@@ -145,8 +145,8 @@
         .border-t { border-top: 1px solid; }
         .hover\:text-goldAccent:hover { color: var(--gold); }
         header > div > a { font-size: 1.2rem; font-weight: 800; letter-spacing: .1em; }
-        header nav { gap: 2rem; }
-        header nav a { position: relative; padding: .35rem .1rem; color: var(--stone-600); font-size: 1rem; font-weight: 700; letter-spacing: .12em; }
+        header nav { display: flex; align-items: center; column-gap: 2rem; row-gap: 1rem; }
+        header nav a { position: relative; padding: .35rem .15rem; color: var(--stone-600); font-size: 1.05rem; font-weight: 700; letter-spacing: .05em; }
         header nav a::after { content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
         header nav a:hover::after, header nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
         .cover-book { border: 1px solid rgba(92, 64, 51, .2); outline: 1px solid rgba(212, 175, 55, .55); outline-offset: -14px; }
@@ -219,7 +219,7 @@
             .p-12 { padding: 2rem 1.25rem; }
             .text-4xl { font-size: 2rem; }
             header > div > a { font-size: 1.05rem; letter-spacing: .06em; }
-            header nav a { letter-spacing: .08em; }
+            header nav a { letter-spacing: .04em; }
             .cover-book { padding: 4.5rem 2rem; outline-offset: -10px; }
             .cover-corner { width: 28px; height: 28px; }
             .cover-corner-top { top: 20px; left: 20px; }
@@ -255,7 +255,7 @@
     <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-[#EBE5D8]">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="#cover" class="font-bold tracking-wider text-lg text-earthBrown">致 Elaine 師友紀念冊</a>
-            <nav class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+            <nav class="hidden md:flex text-sm font-medium text-stone-600">
                 <a href="#preface" class="hover:text-goldAccent transition">序</a>
                 <a href="#story" class="hover:text-goldAccent transition">人生故事</a>
                 <a href="#tour" class="hover:text-goldAccent transition">遊學故事</a>
