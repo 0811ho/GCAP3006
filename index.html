@@ -119,6 +119,17 @@
         .space-y-5 > * + * { margin-top: 1.25rem; }
         .border-t { border-top: 1px solid; }
         .hover\:text-goldAccent:hover { color: var(--gold); }
+        .cover-book { border: 1px solid rgba(92, 64, 51, .2); outline: 1px solid rgba(212, 175, 55, .55); outline-offset: -14px; }
+        .cover-corner { position: absolute; width: 42px; height: 42px; border-color: var(--gold); opacity: .8; }
+        .cover-corner-top { top: 28px; left: 28px; border-top: 2px solid; border-left: 2px solid; }
+        .cover-corner-bottom { right: 28px; bottom: 28px; border-right: 2px solid; border-bottom: 2px solid; }
+        .cover-kicker { position: relative; z-index: 1; }
+        .cover-label { display: inline-block; margin: 0 0 1.5rem; padding: .4rem .8rem; border: 1px solid rgba(212, 175, 55, .7); color: var(--brown); font-size: .72rem; letter-spacing: .16em; }
+        .cover-title { letter-spacing: .08em; }
+        .cover-recipient { letter-spacing: .08em; }
+        .cover-recipient strong { color: var(--brown); font-weight: 700; }
+        .cover-rule { opacity: .8; }
+        .cover-note { letter-spacing: .2em; }
 
         @media (min-width: 640px) {
             .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -139,6 +150,11 @@
             nav { display: none; }
             .p-12 { padding: 2rem 1.25rem; }
             .text-4xl { font-size: 2rem; }
+            .cover-book { padding: 4.5rem 2rem; outline-offset: -10px; }
+            .cover-corner { width: 28px; height: 28px; }
+            .cover-corner-top { top: 20px; left: 20px; }
+            .cover-corner-bottom { right: 20px; bottom: 20px; }
+            .cover-note { letter-spacing: .1em; }
         }
 
         .paper-card {
@@ -169,13 +185,15 @@
     <main>
         <!-- P.1 封面 -->
         <section id="cover" class="min-h-[78vh] flex items-center justify-center px-6 py-20 cover-texture bg-warmSand/50">
-            <div class="max-w-4xl w-full paper-card rounded-2xl p-10 md:p-20 text-center relative overflow-hidden">
-                <div class="absolute inset-x-0 top-0 h-2 bg-goldAccent"></div>
-                <p class="text-goldAccent text-sm font-semibold tracking-[0.3em] uppercase mb-8">Triangle Project · The Dean List</p>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-earthBrown mb-6">歲月如歌<br><span class="text-goldAccent">恩典足跡</span></h1>
-                <p class="text-xl md:text-2xl text-stone-600 mb-10">致我們尊貴的訪談對象<br>Elaine Chan 女士</p>
-                <div class="w-24 h-px bg-goldAccent mx-auto mb-6"></div>
-                <p class="text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
+            <div class="cover-book max-w-4xl w-full paper-card p-10 md:p-20 text-center relative overflow-hidden">
+                <div class="cover-corner cover-corner-top"></div>
+                <div class="cover-corner cover-corner-bottom"></div>
+                <p class="cover-kicker text-goldAccent text-sm font-semibold tracking-[0.3em] uppercase mb-8">Triangle Project · The Dean List</p>
+                <p class="cover-label">訪談紀念冊 · 2026</p>
+                <h1 class="cover-title text-4xl md:text-6xl font-extrabold leading-tight text-earthBrown mb-6">歲月如歌<br><span class="text-goldAccent">恩典足跡</span></h1>
+                <p class="cover-recipient text-xl md:text-2xl text-stone-600 mb-10">獻給<br><strong>Elaine Chan 女士</strong></p>
+                <div class="cover-rule w-24 h-px bg-goldAccent mx-auto mb-6"></div>
+                <p class="cover-note text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
             </div>
         </section>
 
