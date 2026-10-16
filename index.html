@@ -19,10 +19,11 @@
     <meta name="twitter:image" content="https://elainechan.pages.dev/cover.svg">
     <style>
         :root {
-            --cream: #fdfbf7;
-            --warm-sand: #f4ebe1;
-            --gold: #d4af37;
-            --brown: #5c4033;
+            --cream: #fffdf5;
+            --warm-sand: #fff2cc;
+            --gold: #e8a928;
+            --brown: #684735;
+            --sky: #dff2f4;
             --stone-400: #a8a29e;
             --stone-500: #78716c;
             --stone-600: #57534e;
@@ -31,7 +32,8 @@
 
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; background: var(--cream); color: var(--brown); font-family: Inter, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.5; background-image: radial-gradient(circle at 50% -10%, rgba(255, 255, 255, .95), transparent 38%), linear-gradient(135deg, rgba(244, 235, 225, .45), transparent 42%); }
+        body { margin: 0; background: var(--cream); color: var(--brown); font-family: Inter, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.5; background-image: radial-gradient(circle at 50% -10%, rgba(255, 255, 255, .98), transparent 38%), linear-gradient(135deg, rgba(255, 242, 204, .62), transparent 42%), linear-gradient(315deg, rgba(223, 242, 244, .35), transparent 48%); }
+        main { position: relative; z-index: 1; }
         a { color: inherit; text-decoration: none; }
         p, h1, h2, h3 { margin-top: 0; }
         p { margin-bottom: 1rem; }
@@ -43,8 +45,8 @@
         .text-stone-500 { color: var(--stone-500); }
         .text-stone-600 { color: var(--stone-600); }
         .bg-warmSand { background: var(--warm-sand); }
-        .bg-warmSand\/30 { background: rgba(244, 235, 225, .3); }
-        .bg-warmSand\/50 { background: rgba(244, 235, 225, .5); }
+        .bg-warmSand\/30 { background: rgba(255, 242, 204, .3); }
+        .bg-warmSand\/50 { background: rgba(255, 242, 204, .5); }
         .bg-earthBrown { background: var(--brown); }
         .bg-cream\/90 { background: rgba(253, 251, 247, .9); }
         .border-\[\#EBE5D8\] { border-color: var(--line); }
@@ -127,14 +129,14 @@
         .paper-card:hover { transform: translateY(-3px); border-color: rgba(212, 175, 55, .65); box-shadow: 0 16px 30px -8px rgba(92, 64, 51, .16), 0 0 0 1px rgba(212, 175, 55, .08); }
         .paper-card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(circle 220px at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 238, 183, .24), transparent 70%); opacity: 0; transition: opacity .3s ease; }
         .paper-card:hover::before { opacity: 1; }
-        .paper-card::after { content: ""; position: absolute; top: -30%; left: -75%; width: 38%; height: 160%; pointer-events: none; background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .48), transparent); transform: rotate(12deg); transition: left .8s cubic-bezier(.22, 1, .36, 1); }
+        .paper-card::after { content: ""; position: absolute; top: -30%; left: -75%; width: 38%; height: 160%; pointer-events: none; background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .42), transparent); transform: rotate(12deg); transition: left 1.8s cubic-bezier(.22, 1, .36, 1); }
         .paper-card:hover::after { left: 125%; }
         .grid > .paper-card, .grid > article.paper-card { animation: card-rise .7s cubic-bezier(.22, 1, .36, 1) both; }
         .grid > :nth-child(2) { animation-delay: 90ms; }
         .grid > :nth-child(3) { animation-delay: 180ms; }
         .grid > :nth-child(4) { animation-delay: 270ms; }
         @keyframes card-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-        .cover-texture { background-image: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, .8), transparent 30%), radial-gradient(rgba(212, 175, 55, .16) 1px, transparent 1px); background-size: auto, 18px 18px; }
+        .cover-texture { background-image: radial-gradient(circle at 50% 18%, rgba(255, 255, 255, .9), transparent 30%), linear-gradient(135deg, rgba(255, 242, 204, .55), rgba(223, 242, 244, .22)), radial-gradient(rgba(232, 169, 40, .18) 1px, transparent 1px); background-size: auto, auto, 18px 18px; }
         .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1); }
         .gap-4 { gap: 1rem; }
         .gap-6 { gap: 1.5rem; }
@@ -163,6 +165,18 @@
         .cover-note { letter-spacing: .2em; }
         .cover-hope { margin: 1.4rem 0 0; color: var(--soft-amber, #c59b27); font-size: .85rem; letter-spacing: .18em; }
         .cover-book::after { content: "✦"; position: absolute; top: 2.1rem; right: 3rem; color: rgba(212, 175, 55, .65); font-size: 1.5rem; }
+        .breeze-pattern { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .breeze-item { position: absolute; display: block; opacity: .2; user-select: none; will-change: transform; }
+        .breeze-flower { color: #c59b27; font-size: 1.25rem; }
+        .breeze-butterfly { font-size: 1.3rem; filter: saturate(.7); }
+        .flower-one { top: 18%; left: 4%; animation: breeze-one 14s ease-in-out infinite; }
+        .flower-two { top: 68%; left: 88%; font-size: 1rem; animation: breeze-two 18s ease-in-out infinite; }
+        .flower-three { top: 42%; left: 94%; animation: breeze-three 16s ease-in-out infinite; }
+        .butterfly-one { top: 28%; left: 91%; animation: breeze-two 20s ease-in-out infinite; }
+        .butterfly-two { top: 78%; left: 7%; font-size: 1rem; animation: breeze-three 23s ease-in-out infinite reverse; }
+        @keyframes breeze-one { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); } 50% { transform: translate3d(42px, 24px, 0) rotate(18deg); } }
+        @keyframes breeze-two { 0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); } 50% { transform: translate3d(-52px, 38px, 0) rotate(-20deg); } }
+        @keyframes breeze-three { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(-28px, -36px, 0) rotate(15deg); } }
         .photo-gallery { display: grid; gap: .75rem; text-align: left; }
         .photo-gallery figure { margin: 0; }
         .photo-trigger { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
@@ -226,10 +240,18 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: .01ms !important;
             }
+            .breeze-item { animation: none !important; }
         }
     </style>
 </head>
 <body class="bg-cream text-earthBrown font-sans antialiased selection:bg-warmSand selection:text-earthBrown">
+    <div class="breeze-pattern" aria-hidden="true">
+        <span class="breeze-item breeze-flower flower-one">✿</span>
+        <span class="breeze-item breeze-flower flower-two">✦</span>
+        <span class="breeze-item breeze-butterfly butterfly-one">🦋</span>
+        <span class="breeze-item breeze-butterfly butterfly-two">🦋</span>
+        <span class="breeze-item breeze-flower flower-three">❀</span>
+    </div>
     <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-[#EBE5D8]">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="#cover" class="font-bold tracking-wider text-lg text-earthBrown">致 Elaine 師友紀念冊</a>
