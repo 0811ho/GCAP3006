@@ -215,20 +215,9 @@
         .lyrics-content { color: var(--stone-600); line-height: 1.9; text-align: left; }
         .lyrics-content h4 { margin: 1.5rem 0 .4rem; color: var(--brown); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
         .lyrics-content p { margin-bottom: 1rem; }
-        .song-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; min-height: 1.75rem; }
-        .song-heading h3 { margin: 0; line-height: 1.4; }
-        .song-open { display: block; flex: 0 0 auto; padding: .15rem 0 0; border: 0; color: var(--gold); background: transparent; cursor: pointer; font-size: .72rem; font-weight: 600; letter-spacing: .08em; white-space: nowrap; }
-        .song-open:hover, .song-open:focus-visible { color: var(--gold); }
-        .custom-player { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: .5rem .75rem; align-items: center; margin-top: .85rem; }
-        .custom-player audio { display: none; }
-        .player-button { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; padding: 0 0 .02em .08em; border: 1px solid rgba(104, 71, 53, .25); border-radius: 50%; color: var(--cream); background: var(--brown); cursor: pointer; font-size: .9rem; line-height: 1; }
-        .player-button:hover, .player-button:focus-visible { background: var(--gold); }
-        .player-progress { grid-column: 2; grid-row: 1; min-width: 0; }
-        .player-progress input, .player-volume input { display: block; width: 100%; accent-color: var(--gold); cursor: pointer; }
-        .player-time { color: var(--stone-500); font-size: .72rem; white-space: nowrap; }
-        .player-volume { grid-column: 1; grid-row: 2; display: grid; gap: .2rem; justify-items: center; color: var(--stone-500); font-size: .68rem; line-height: 1; }
-        .player-volume input { width: 2.25rem; }
-        @media (max-width: 400px) { .player-volume input { width: 6rem; } }
+        .song-open { display: block; padding: 0; border: 0; color: var(--brown); background: transparent; cursor: pointer; text-align: left; }
+        .song-open h3 { margin-bottom: 0; }
+        .song-open:hover h3, .song-open:focus-visible h3 { color: var(--gold); }
         .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1); }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
@@ -354,45 +343,22 @@
                     <p class="text-stone-600">在這裡聽聽送給 Elaine 的兩首音樂。</p>
                     <div class="suno-track-list">
                         <article class="suno-track rounded-lg">
-                            <div class="song-heading">
-                                <h3 class="font-bold text-earthBrown">星光下的祈禱</h3>
-                            </div>
+                            <h3 class="font-bold text-earthBrown">星光下的祈禱</h3>
                             <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
-                            <div class="custom-player" data-audio-player>
-                                <audio preload="auto">
-                                    <source src="suno-prayer.mp3" type="audio/mpeg">
-                                </audio>
-                                <button class="player-button" type="button" data-play aria-label="播放星光下的祈禱">▶</button>
-                                <div class="player-progress">
-                                    <input type="range" data-progress min="0" max="0" value="0" step="0.1" aria-label="星光下的祈禱播放進度">
-                                </div>
-                                <span class="player-time" data-time>0:00 / 0:00</span>
-                                <div class="player-volume">
-                                    <span aria-hidden="true">音量</span>
-                                    <input type="range" data-volume min="0" max="1" value="1" step="0.05" aria-label="星光下的祈禱音量">
-                                </div>
-                            </div>
+                            <audio controls preload="auto">
+                                <source src="suno-prayer.mp3" type="audio/mpeg">
+                                您的瀏覽器不支援音訊播放。
+                            </audio>
                         </article>
                         <article class="suno-track rounded-lg">
-                            <div class="song-heading">
+                            <button class="song-open" id="gentleValleyOpen" type="button" aria-haspopup="dialog" aria-controls="lyricsViewer">
                                 <h3 class="font-bold text-earthBrown">幽谷中長出溫柔</h3>
-                                <button class="song-open" id="gentleValleyOpen" type="button" aria-haspopup="dialog" aria-controls="lyricsViewer">閱讀歌詞</button>
-                            </div>
+                            </button>
                             <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
-                            <div class="custom-player" data-audio-player>
-                                <audio preload="auto">
-                                    <source src="suno-gentle-valley.mp3" type="audio/mpeg">
-                                </audio>
-                                <button class="player-button" type="button" data-play aria-label="播放幽谷中長出溫柔">▶</button>
-                                <div class="player-progress">
-                                    <input type="range" data-progress min="0" max="0" value="0" step="0.1" aria-label="幽谷中長出溫柔播放進度">
-                                </div>
-                                <span class="player-time" data-time>0:00 / 0:00</span>
-                                <div class="player-volume">
-                                    <span aria-hidden="true">音量</span>
-                                    <input type="range" data-volume min="0" max="1" value="1" step="0.05" aria-label="幽谷中長出溫柔音量">
-                                </div>
-                            </div>
+                            <audio controls preload="auto">
+                                <source src="suno-gentle-valley.mp3" type="audio/mpeg">
+                                您的瀏覽器不支援音訊播放。
+                            </audio>
                         </article>
                     </div>
                 </div>
@@ -544,20 +510,10 @@
             <div class="lyrics-heading">
                 <span class="text-goldAccent font-semibold tracking-wider text-sm uppercase">SUNO 主題曲</span>
                 <h2 class="text-2xl font-bold text-earthBrown mt-2" id="lyricsTitle">幽谷中長出溫柔</h2>
-                <div class="custom-player mt-5" data-audio-player>
-                    <audio preload="auto">
-                        <source src="suno-gentle-valley.mp3" type="audio/mpeg">
-                    </audio>
-                    <button class="player-button" type="button" data-play aria-label="播放幽谷中長出溫柔">▶</button>
-                    <div class="player-progress">
-                        <input type="range" data-progress min="0" max="0" value="0" step="0.1" aria-label="幽谷中長出溫柔播放進度">
-                    </div>
-                    <span class="player-time" data-time>0:00 / 0:00</span>
-                    <div class="player-volume">
-                        <span aria-hidden="true">音量</span>
-                        <input type="range" data-volume min="0" max="1" value="1" step="0.05" aria-label="幽谷中長出溫柔音量">
-                    </div>
-                </div>
+                <audio controls preload="auto" class="w-full mt-5">
+                    <source src="suno-gentle-valley.mp3" type="audio/mpeg">
+                    您的瀏覽器不支援音訊播放。
+                </audio>
             </div>
             <div class="lyrics-content mt-6">
                 <h4>Intro</h4>
@@ -591,44 +547,6 @@
     </div>
 
     <script>
-        function formatAudioTime(seconds) {
-            if (!Number.isFinite(seconds)) return '0:00';
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
-            return `${minutes}:${remainingSeconds}`;
-        }
-
-        document.querySelectorAll('[data-audio-player]').forEach((player) => {
-            const audio = player.querySelector('audio');
-            const playButton = player.querySelector('[data-play]');
-            const progress = player.querySelector('[data-progress]');
-            const volume = player.querySelector('[data-volume]');
-            const time = player.querySelector('[data-time]');
-
-            function updateAudioState() {
-                const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
-                progress.max = duration;
-                progress.value = audio.currentTime;
-                time.textContent = `${formatAudioTime(audio.currentTime)} / ${formatAudioTime(duration)}`;
-                playButton.textContent = audio.paused ? '▶' : '❚❚';
-                playButton.setAttribute('aria-label', `${audio.paused ? '播放' : '暫停'}${player.querySelector('input[type="range"]').getAttribute('aria-label').replace('播放進度', '')}`);
-            }
-
-            playButton.addEventListener('click', () => {
-                if (audio.paused) audio.play();
-                else audio.pause();
-            });
-            progress.addEventListener('input', () => { audio.currentTime = Number(progress.value); });
-            volume.addEventListener('input', () => { audio.volume = Number(volume.value); });
-            audio.addEventListener('loadedmetadata', updateAudioState);
-            audio.addEventListener('durationchange', updateAudioState);
-            audio.addEventListener('timeupdate', updateAudioState);
-            audio.addEventListener('play', updateAudioState);
-            audio.addEventListener('pause', updateAudioState);
-            audio.addEventListener('ended', updateAudioState);
-            updateAudioState();
-        });
-
         const photoButtons = Array.from(document.querySelectorAll('.photo-trigger'));
         const viewer = document.getElementById('photoViewer');
         const viewerImage = document.getElementById('viewerImage');
