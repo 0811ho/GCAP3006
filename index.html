@@ -215,20 +215,19 @@
         .lyrics-content { color: var(--stone-600); line-height: 1.9; text-align: left; }
         .lyrics-content h4 { margin: 1.5rem 0 .4rem; color: var(--brown); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
         .lyrics-content p { margin-bottom: 1rem; }
-        .song-open { display: flex; align-items: flex-start; gap: .4rem; width: fit-content; padding: 0; border: 0; color: var(--brown); background: transparent; cursor: pointer; text-align: left; }
-        .suno-track > h3, .song-open { height: 1.75rem; margin: 0; }
-        .song-open h3 { margin: 0; line-height: 1.4; }
-        .song-open::after { content: "閱讀歌詞"; color: var(--gold); font-size: .72rem; font-weight: 600; letter-spacing: .08em; }
+        .song-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; min-height: 1.75rem; }
+        .song-heading h3 { margin: 0; line-height: 1.4; }
+        .song-open { display: block; flex: 0 0 auto; padding: .15rem 0 0; border: 0; color: var(--gold); background: transparent; cursor: pointer; font-size: .72rem; font-weight: 600; letter-spacing: .08em; white-space: nowrap; }
         .song-open:hover, .song-open:focus-visible { color: var(--gold); }
-        .custom-player { display: grid; grid-template-columns: auto 1fr auto; gap: .65rem .75rem; align-items: center; margin-top: .85rem; }
+        .custom-player { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: .5rem .75rem; align-items: center; margin-top: .85rem; }
         .custom-player audio { display: none; }
-        .player-button { width: 2.25rem; height: 2.25rem; padding: 0; border: 1px solid rgba(104, 71, 53, .25); border-radius: 50%; color: var(--cream); background: var(--brown); cursor: pointer; font-size: .9rem; }
+        .player-button { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; padding: 0 0 .02em .08em; border: 1px solid rgba(104, 71, 53, .25); border-radius: 50%; color: var(--cream); background: var(--brown); cursor: pointer; font-size: .9rem; line-height: 1; }
         .player-button:hover, .player-button:focus-visible { background: var(--gold); }
-        .player-progress { min-width: 0; }
+        .player-progress { grid-column: 2; grid-row: 1; min-width: 0; }
         .player-progress input, .player-volume input { display: block; width: 100%; accent-color: var(--gold); cursor: pointer; }
         .player-time { color: var(--stone-500); font-size: .72rem; white-space: nowrap; }
-        .player-volume { grid-column: 2 / -1; display: grid; grid-template-columns: auto minmax(5rem, 8rem); gap: .5rem; align-items: center; justify-content: end; color: var(--stone-500); font-size: .78rem; }
-        .player-volume input { width: 8rem; }
+        .player-volume { grid-column: 1; grid-row: 2; display: grid; gap: .2rem; justify-items: center; color: var(--stone-500); font-size: .68rem; line-height: 1; }
+        .player-volume input { width: 2.25rem; }
         @media (max-width: 400px) { .player-volume input { width: 6rem; } }
         .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1); }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -355,7 +354,9 @@
                     <p class="text-stone-600">在這裡聽聽送給 Elaine 的兩首音樂。</p>
                     <div class="suno-track-list">
                         <article class="suno-track rounded-lg">
-                            <h3 class="font-bold text-earthBrown">星光下的祈禱</h3>
+                            <div class="song-heading">
+                                <h3 class="font-bold text-earthBrown">星光下的祈禱</h3>
+                            </div>
                             <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
                             <div class="custom-player" data-audio-player>
                                 <audio preload="auto">
@@ -373,9 +374,10 @@
                             </div>
                         </article>
                         <article class="suno-track rounded-lg">
-                            <button class="song-open" id="gentleValleyOpen" type="button" aria-haspopup="dialog" aria-controls="lyricsViewer">
+                            <div class="song-heading">
                                 <h3 class="font-bold text-earthBrown">幽谷中長出溫柔</h3>
-                            </button>
+                                <button class="song-open" id="gentleValleyOpen" type="button" aria-haspopup="dialog" aria-controls="lyricsViewer">閱讀歌詞</button>
+                            </div>
                             <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
                             <div class="custom-player" data-audio-player>
                                 <audio preload="auto">
