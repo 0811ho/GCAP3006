@@ -215,7 +215,9 @@
         .lyrics-content { color: var(--stone-600); line-height: 1.9; text-align: left; }
         .lyrics-content h4 { margin: 1.5rem 0 .4rem; color: var(--brown); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
         .lyrics-content p { margin-bottom: 1rem; }
-        .song-open { display: inline-flex; align-items: center; gap: .4rem; padding: 0; border: 0; color: var(--brown); background: transparent; cursor: pointer; text-align: left; }
+        .song-open { display: flex; align-items: flex-start; gap: .4rem; width: fit-content; padding: 0; border: 0; color: var(--brown); background: transparent; cursor: pointer; text-align: left; }
+        .suno-track > h3, .song-open { height: 1.75rem; margin: 0; }
+        .song-open h3 { margin: 0; line-height: 1.4; }
         .song-open::after { content: "閱讀歌詞"; color: var(--gold); font-size: .72rem; font-weight: 600; letter-spacing: .08em; }
         .song-open:hover, .song-open:focus-visible { color: var(--gold); }
         .custom-player { display: grid; grid-template-columns: auto 1fr auto; gap: .65rem .75rem; align-items: center; margin-top: .85rem; }
