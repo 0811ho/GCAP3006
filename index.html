@@ -165,6 +165,10 @@
         .cover-note { letter-spacing: .2em; }
         .cover-hope { margin: 1.4rem 0 0; color: var(--soft-amber, #c59b27); font-size: .85rem; letter-spacing: .18em; }
         .cover-book::after { content: "✦"; position: absolute; top: 2.1rem; right: 3rem; color: rgba(212, 175, 55, .65); font-size: 1.5rem; }
+        .suno-track-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; text-align: left; }
+        .suno-track { padding: 1.25rem; background: rgba(255, 255, 255, .72); border: 1px solid var(--line); }
+        .suno-track audio { display: block; width: 100%; margin-top: .85rem; }
+        @media (max-width: 640px) { .suno-track-list { grid-template-columns: 1fr; } }
         .breeze-pattern { position: static; z-index: 0; pointer-events: none; }
         .breeze-item { position: absolute; display: block; opacity: 0; user-select: none; will-change: transform, opacity, filter; transition: opacity .9s ease, filter .9s ease; animation-duration: 18s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-play-state: paused; }
         .breeze-item.is-visible { opacity: var(--breeze-opacity, .32); animation-play-state: running; }
@@ -316,14 +320,31 @@
             </div>
         </section>
 
-        <!-- SUNO 留白區 -->
+        <!-- SUNO 音樂區 -->
         <section id="song" class="py-16 px-6 bg-warmSand/50 border-y border-[#EBE5D8]">
             <div class="max-w-3xl mx-auto text-center">
                 <span class="text-goldAccent font-semibold tracking-wider text-sm uppercase">專屬主題曲</span>
                 <h2 class="text-3xl font-bold text-earthBrown mt-2">SUNO 音樂區</h2>
-                <div class="paper-card rounded-2xl p-12 mt-8 border-dashed border-2 border-goldAccent/50">
-                    <p class="text-stone-500">此部分留待主題曲完成後加入。</p>
-                    <p class="text-sm text-stone-400 mt-2">Music and QR code coming soon</p>
+                <div class="paper-card rounded-2xl p-6 md:p-8 mt-8 border-2 border-goldAccent/50">
+                    <p class="text-stone-600">在這裡聽聽送給 Elaine 的兩首音樂。</p>
+                    <div class="suno-track-list">
+                        <article class="suno-track rounded-lg">
+                            <h3 class="font-bold text-earthBrown">星光下的祈禱</h3>
+                            <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
+                            <audio controls preload="metadata">
+                                <source src="星光下的祈禱.mp3" type="audio/mpeg">
+                                您的瀏覽器不支援音訊播放。
+                            </audio>
+                        </article>
+                        <article class="suno-track rounded-lg">
+                            <h3 class="font-bold text-earthBrown">幽谷中長出溫柔</h3>
+                            <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
+                            <audio controls preload="metadata">
+                                <source src="幽谷中長出溫柔.mp3" type="audio/mpeg">
+                                您的瀏覽器不支援音訊播放。
+                            </audio>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
