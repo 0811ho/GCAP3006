@@ -157,6 +157,9 @@
         .cover-corner-bottom { right: 28px; bottom: 28px; border-right: 2px solid; border-bottom: 2px solid; }
         .cover-kicker { position: relative; z-index: 1; }
         .cover-label { display: inline-block; margin: 0 0 1.5rem; padding: .4rem .8rem; border: 1px solid rgba(212, 175, 55, .7); color: var(--brown); font-size: .72rem; letter-spacing: .16em; }
+        .cover-layout { position: relative; display: block; min-height: 32rem; text-align: center; }
+        .cover-copy { position: relative; z-index: 1; }
+        .cover-illustration { position: absolute; right: 1.25rem; bottom: .75rem; z-index: 0; display: block; width: 180px; height: 180px; object-fit: cover; border-radius: .5rem; opacity: .92; }
         .cover-title { letter-spacing: .14em; }
         .cover-recipient { letter-spacing: .12em; }
         section h2 { letter-spacing: .08em; }
@@ -168,6 +171,8 @@
         .suno-track-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; text-align: left; }
         .suno-track { padding: 1.25rem; background: rgba(255, 255, 255, .72); border: 1px solid var(--line); }
         .suno-track audio { display: block; width: 100%; margin-top: .85rem; }
+        .qr-link { display: block; width: 7rem; height: 7rem; margin: 0 auto; }
+        .qr-code { display: block; width: 100%; height: 100%; object-fit: contain; }
         @media (max-width: 640px) { .suno-track-list { grid-template-columns: 1fr; } }
         .breeze-pattern { position: static; z-index: 0; pointer-events: none; }
         .breeze-item { position: absolute; display: block; opacity: 0; user-select: none; will-change: transform, opacity, filter; transition: opacity .9s ease, filter .9s ease; animation-duration: 18s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-play-state: paused; }
@@ -246,6 +251,8 @@
             header > div > a { width: 100%; max-width: 100%; white-space: nowrap; text-align: center; font-size: .98rem; letter-spacing: .04em; }
             header nav a { flex: 1 1 0; padding: .25rem 0; text-align: center; font-size: .78rem; letter-spacing: 0; white-space: nowrap; }
             .cover-book { padding: 4.5rem 2rem; outline-offset: -10px; }
+            .cover-layout { min-height: 32rem; }
+            .cover-illustration { right: .65rem; bottom: .65rem; width: 108px; height: 108px; }
             .cover-corner { width: 28px; height: 28px; }
             .lyrics-panel { padding: 3.25rem 1.25rem 1.5rem; }
             .cover-corner-top { top: 20px; left: 20px; }
@@ -311,13 +318,18 @@
             <div class="cover-book max-w-4xl w-full paper-card p-10 md:p-20 text-center relative overflow-hidden">
                 <div class="cover-corner cover-corner-top"></div>
                 <div class="cover-corner cover-corner-bottom"></div>
-                <p class="cover-kicker text-goldAccent text-sm font-semibold tracking-[0.3em] uppercase mb-8">Triangle Project · The Dean List</p>
-                <p class="cover-label">訪談紀念冊 · 2026</p>
-                <h1 class="cover-title text-4xl md:text-6xl font-extrabold leading-tight text-earthBrown mb-6">歲月如歌<br><span class="text-goldAccent">恩典足跡</span></h1>
-                <p class="cover-recipient text-xl md:text-2xl text-stone-600 mb-10">獻給<br><strong>Elaine Chan 女士</strong></p>
-                <div class="cover-rule w-24 h-px bg-goldAccent mx-auto mb-6"></div>
-                <p class="cover-note text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
-                <p class="cover-hope">願平安與盼望同行</p>
+                <div class="cover-layout">
+                    <div class="cover-copy">
+                        <p class="cover-kicker text-goldAccent text-sm font-semibold tracking-[0.3em] uppercase mb-8">Triangle Project · The Dean List</p>
+                        <p class="cover-label">訪談紀念冊 · 2026</p>
+                        <h1 class="cover-title text-4xl md:text-6xl font-extrabold leading-tight text-earthBrown mb-6">歲月如歌<br><span class="text-goldAccent">恩典足跡</span></h1>
+                        <p class="cover-recipient text-xl md:text-2xl text-stone-600 mb-10">獻給<br><strong>Elaine Chan 女士</strong></p>
+                        <div class="cover-rule w-24 h-px bg-goldAccent mx-auto mb-6"></div>
+                        <p class="cover-note text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
+                        <p class="cover-hope">願平安與盼望同行</p>
+                    </div>
+                    <img class="cover-illustration" src="hello-bear.gif" alt="小熊揮手打招呼的動畫插圖">
+                </div>
             </div>
         </section>
 
@@ -446,8 +458,10 @@
                 </div>
                 <div class="paper-card rounded-xl p-6 text-center">
                     <h3 class="font-bold text-earthBrown mb-3">多媒體 QR code</h3>
-                    <div class="w-28 h-28 mx-auto border-2 border-dashed border-goldAccent/60 flex items-center justify-center text-xs text-stone-400">QR code<br>待加入</div>
-                    <p class="text-stone-400 text-xs mt-3">可連結 SUNO 音樂或作品集</p>
+                    <a class="qr-link" href="https://elainechan.pages.dev/" target="_blank" rel="noopener" aria-label="開啟 Elaine Chan 紀念冊網站">
+                        <img class="qr-code" src="website-qr.png" alt="掃描以開啟 Elaine Chan 紀念冊網站">
+                    </a>
+                    <p class="text-stone-400 text-xs mt-3">掃描 QR code 開啟網站</p>
                 </div>
                 <div class="paper-card rounded-xl p-6 text-center">
                     <h3 class="font-bold text-earthBrown mb-3">我們的合照</h3>
