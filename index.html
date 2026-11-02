@@ -171,6 +171,7 @@
         .suno-track-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; text-align: left; }
         .suno-track { padding: 1.25rem; background: rgba(255, 255, 255, .72); border: 1px solid var(--line); }
         .suno-track audio { display: block; width: 100%; margin-top: .85rem; }
+        .gentle-valley-player { display: block; width: min(100%, 321px); margin: .85rem auto 0; }
         .qr-link { display: block; width: 7rem; height: 7rem; margin: 0 auto; }
         .qr-code { display: block; width: 100%; height: 100%; object-fit: contain; }
         @media (max-width: 640px) { .suno-track-list { grid-template-columns: 1fr; } }
@@ -305,6 +306,7 @@
             <a href="#cover" class="font-bold tracking-wider text-lg text-earthBrown">致 Elaine 師友紀念冊</a>
             <nav class="hidden md:flex text-sm font-medium text-stone-600">
                 <a href="#preface" class="hover:text-goldAccent transition">序</a>
+                <a href="#song" class="hover:text-goldAccent transition">SUNO 音樂區</a>
                 <a href="#story" class="hover:text-goldAccent transition">人生故事</a>
                 <a href="#tour" class="hover:text-goldAccent transition">遊學故事</a>
                 <a href="#afterword" class="hover:text-goldAccent transition">後記</a>
@@ -371,7 +373,7 @@
                                 <button class="song-open" id="gentleValleyOpen" type="button" aria-haspopup="dialog" aria-controls="lyricsViewer">閱讀歌詞</button>
                             </div>
                             <p class="text-stone-500 text-sm mt-2">SUNO 主題曲</p>
-                            <audio controls preload="auto">
+                            <audio class="gentle-valley-player" id="gentleValleyMainAudio" controls preload="auto">
                                 <source src="suno-gentle-valley.mp3" type="audio/mpeg">
                                 您的瀏覽器不支援音訊播放。
                             </audio>
@@ -528,7 +530,7 @@
             <div class="lyrics-heading">
                 <span class="text-goldAccent font-semibold tracking-wider text-sm uppercase">SUNO 主題曲</span>
                 <h2 class="text-2xl font-bold text-earthBrown mt-2" id="lyricsTitle">幽谷中長出溫柔</h2>
-                <audio controls preload="auto" class="w-full mt-5">
+                <audio class="gentle-valley-player" id="gentleValleyLyricsAudio" controls preload="auto">
                     <source src="suno-gentle-valley.mp3" type="audio/mpeg">
                     您的瀏覽器不支援音訊播放。
                 </audio>
@@ -575,6 +577,26 @@
         const lyricsViewer = document.getElementById('lyricsViewer');
         const lyricsOpen = document.getElementById('gentleValleyOpen');
         const lyricsClose = document.getElementById('lyricsClose');
+        const gentleValleyPlayers = Array.from(document.querySelectorAll('.gentle-valley-player'));
+
+        function syncGentleValley(source) {
+            gentleValleyPlayers.forEach((player) => {
+                if (player === source) return;
+                if (Math.abs(player.currentTime - source.currentTime) > .25) {
+                    player.currentTime = source.currentTime;
+                }
+                if (player.volume !== source.volume) player.volume = source.volume;
+                if (player.muted !== source.muted) player.muted = source.muted;
+                if (source.paused && !player.paused) player.pause();
+                if (!source.paused && player.paused) player.play().catch(() => {});
+            });
+        }
+
+        gentleValleyPlayers.forEach((player) => {
+            ['play', 'pause', 'timeupdate', 'seeking', 'volumechange'].forEach((eventName) => {
+                player.addEventListener(eventName, () => syncGentleValley(player));
+            });
+        });
 
         function closeLyrics() {
             lyricsViewer.classList.remove('is-open');
