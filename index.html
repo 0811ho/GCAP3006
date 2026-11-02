@@ -330,7 +330,7 @@
                         <p class="cover-note text-sm tracking-widest text-stone-500">一份由同學們親手整理的故事與祝福</p>
                         <p class="cover-hope">願平安與盼望同行</p>
                     </div>
-                    <img class="cover-illustration" src="hello-bear.gif" alt="小熊揮手打招呼的動畫插圖">
+                    <img class="cover-illustration" src="hello-bear-transparent.png" alt="小熊揮手打招呼的動畫插圖">
                 </div>
             </div>
         </section>
@@ -577,19 +577,25 @@
         const lyricsViewer = document.getElementById('lyricsViewer');
         const lyricsOpen = document.getElementById('gentleValleyOpen');
         const lyricsClose = document.getElementById('lyricsClose');
-        const gentleValleyPlayers = Array.from(document.querySelectorAll('.gentle-valley-player'));
+        const gentleValleyPlayers = [
+            document.getElementById('gentleValleyMainAudio'),
+            document.getElementById('gentleValleyLyricsAudio')
+        ];
+        let syncingAudio = false;
 
         function syncGentleValley(source) {
-            gentleValleyPlayers.forEach((player) => {
-                if (player === source) return;
-                if (Math.abs(player.currentTime - source.currentTime) > .25) {
+            if (syncingAudio) return;
+            syncingAudio = true;
+            gentleValleyPlayers.filter((player) => player !== source).forEach((player) => {
+                if (Number.isFinite(source.duration) && player.readyState > 0 && Math.abs(player.currentTime - source.currentTime) > .25) {
                     player.currentTime = source.currentTime;
                 }
-                if (player.volume !== source.volume) player.volume = source.volume;
-                if (player.muted !== source.muted) player.muted = source.muted;
+                player.volume = source.volume;
+                player.muted = source.muted;
                 if (source.paused && !player.paused) player.pause();
                 if (!source.paused && player.paused) player.play().catch(() => {});
             });
+            syncingAudio = false;
         }
 
         gentleValleyPlayers.forEach((player) => {
