@@ -16,8 +16,6 @@ p { margin:0 0 1.25rem; }
 .header-inner { display:flex; align-items:center; justify-content:space-between; width:min(100% - 2.5rem,72rem); min-height:4.25rem; margin:auto; }
 .back-link { color:var(--brown); font-weight:700; letter-spacing:.08em; }
 .back-link::before { content:"←"; margin-right:.55rem; color:var(--gold); }
-.page-nav { display:flex; align-items:center; gap:1rem; color:var(--muted); font-size:.86rem; font-weight:700; white-space:nowrap; }
-.page-nav a:hover { color:var(--gold); }
 .header-label { color:var(--muted); font-size:.82rem; letter-spacing:.12em; }
 .page-intro { width:min(100% - 2.5rem,48rem); margin:auto; padding:6rem 0 4rem; text-align:center; }
 .eyebrow { color:var(--gold); font-size:.78rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; }
@@ -41,7 +39,6 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 @media (max-width:760px) {
 .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
 .header-label { display:none; }
-.page-nav { max-width:52vw; overflow-x:auto; gap:.75rem; }
 .page-intro { padding:4.5rem 0 2.5rem; }
 .message-spread { display:flex; flex-direction:column; }
 .message-image { min-height:20rem; border-right:0; border-bottom:1px solid var(--line); }
@@ -52,10 +49,10 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 </style>
 </head>
 <body>
-<header class="site-header"><div class="header-inner"><a class="back-link" href="index.html#afterword">返回紀念冊</a><nav class="page-nav" aria-label="紀念冊頁面導航"><a href="index.html#preface">序</a><a href="index.html#song">SUNO 音樂區</a><a href="index.html#story">人生故事</a><a href="index.html#tour">遊學故事</a><a href="index.html#afterword">後記</a></nav><span class="header-label">後記 · 同學們想對 Elaine 說</span></div></header>
+<header class="site-header"><div class="header-inner"><a class="back-link" href="index.html#afterword">返回紀念冊</a><span class="header-label">後記 · 同學們想對 Elaine 說</span></div></header>
 <main>
 <section class="page-intro"><p class="eyebrow">Chapter 05 · Afterword</p><h1>我們想對 Elaine 說<span>七位同學的真心話</span></h1><p>謝謝 Elaine 讓我們走進她的人生。這些話，是我們在訪談和製作小冊子後，想留下的回應。</p></section>
-<section class="message-spread"><figure class="message-image"><img src="11.JPG" alt="同學為 Elaine 畫下的紀念插畫"></figure><div class="message-copy"><p class="eyebrow">A Small Book Of Thanks</p><h2>把啟迪和祝福留在這一頁</h2><p>Elaine 的分享提醒我們，人生不必停在等待裡；即使要改變走法，也仍然可以保留想走下去的心。以下是同學們想親口告訴你的話。</p></div></section>
+<section class="message-spread"><figure class="message-image"><img src="11.jpg" alt="同學為 Elaine 畫下的紀念插畫"></figure><div class="message-copy"><p class="eyebrow">A Small Book Of Thanks</p><h2>把啟迪和祝福留在這一頁</h2><p>Elaine 的分享提醒我們，人生不必停在等待裡；即使要改變走法，也仍然可以保留想走下去的心。以下是同學們想親口告訴你的話。</p></div></section>
 <section class="message-list" aria-label="同學們給 Elaine 的話">
 <article class="message-card"><h3>Serena</h3><p>何其幸運能結識 Elaine，短短的交談，卻為我帶來深刻的啟迪。做人切莫怕吃虧，貴在堅持。人生浮沉無常，與其隨遇而安，倒不如破釜沉舟，把握當下。</p></article>
 <article class="message-card"><h3>Macy</h3><p>很開心認識 Elaine! 謝謝你給我們分享你的人生經驗，真的讓我獲益良多！很佩服你的勇氣和樂觀，我們大家都要帶着喜樂的心走下去！</p></article>
