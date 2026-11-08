@@ -32,6 +32,12 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.spread-image img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
  .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
  .header-label { display:none; }
@@ -50,6 +56,16 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 <section class="story-spread"><figure class="spread-image"><img src="1.png" alt="六位孩子坐在床褥上的童年插畫"></figure><div class="spread-copy"><p class="eyebrow">1960年代 · 童年</p><h2>一張床，六個孩子</h2><p>Elaine的童年，有一張要由六個孩子分享的床褥。床褥鋪在地上，兄弟姊妹打橫躺下，雙腳伸到床褥外。多年後她提及童年，地方雖然狹窄擠迫，反而讓一家人關係更緊密，更覺溫暖。</p><p>同時，身為二姊的她，很早便肩負起分擔家計的責任。當時正值內地移民潮與嬰兒潮，香港人口數量從1945年約60萬激增至1960年約360萬，令社會及個人資源都非常有限。Elaine父母從內地來港謀生，要在當時養活六個孩子並不容易。</p><p>在生活拮据的日子，她年紀輕輕便要照顧弟妹，後來更要工作分擔家計。有限的收入既要供養起一頭家，也是Elaine爭取讀書的機會。</p><p>而生活的艱難與溫馨，便藏在一次患病的回憶裏。她記得，小時候曾患上肺炎，住院數日仍持續發燒。父親見她情況不妙，毅然背起她，轉往養和醫院求醫。家中雖不寬裕，但父親在危急時刻的決定，讓她得到及時的救治。</p><p>直到今天，說起這件事，她仍感激父親當年的照顧。那張床褥，留在 Elaine 的童年記憶裏。她記得六個孩子擠着睡的侷促，也記得兄弟姊妹打鬧的樂趣。日子就在擠迫與熱鬧之間逝去，而她想繼續讀書的心願，也將帶領故事走向下一頁。</p></div></section>
 <p class="chapter-end">那張床褥，留在 Elaine 的童年記憶裏 · 而她想繼續讀書的心願，將帶領故事走向下一頁</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#story">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>

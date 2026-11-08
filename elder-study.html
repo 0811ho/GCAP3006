@@ -32,6 +32,12 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.spread-image img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
  .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
  .header-label { display:none; }
@@ -51,6 +57,16 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 <section class="story-spread"><div class="spread-copy"><p class="eyebrow">成人教育 · 夜校</p><h2>《白天謀生，晚上求知》</h2><p>隨著成人教育與夜校逐漸發展，加上高等教育院校陸續升格，求學的途徑也漸漸增多。Elaine也把握機會，積極進修。為了心中那頂四方帽，她把日子分給了工作與書本。</p><p>白天，她在出入口公司從事文職工作，與打字機、複寫紙和各種文件打交道。她的工作並不容易，手指常被複寫紙染上藍黑色的油墨，怎麼也洗不掉。在私人公司工作並不輕鬆，有時忙到晚上八、九點，甚至十點才能下班。</p><p>工作與進修之間，她亦需要不斷安排和取捨。因此，夜校成了她延續學業的途徑。別人可以集中精神讀書，她卻要在謀生之外，另找時間求知。</p><p>這條路走得慢，也走得艱辛，但她一步一步累積，最終在剛升格的公開大學完成大學課程，親手為自己戴上那頂四方帽。</p><p>那頂四方帽，承載着多年來兼顧工作與學習的日子。對 Elaine 而言，完成學業的喜悅，是她一直堅持下去的果實，縱使求學的路曾經受阻，她卻一直沒有放下書本。</p></div><figure class="spread-image"><img src="5.png" alt="白天工作、晚上到夜校求學的故事插畫"></figure></section>
 <p class="chapter-end">求學歲月未完 · 她把白天的辛勞與晚上的堅持，寫成自己的下一頁</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#story">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>

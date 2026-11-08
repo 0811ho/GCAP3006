@@ -581,6 +581,19 @@
 
     <script>
         const photoButtons = Array.from(document.querySelectorAll('.photo-trigger'));
+        const standaloneImages = Array.from(document.querySelectorAll('img:not(#viewerImage)')).filter((image) => !image.closest('.photo-trigger'));
+        const photoItems = [
+            ...photoButtons.map((button) => ({
+                photo: button.dataset.photo,
+                alt: button.querySelector('img').alt,
+                caption: button.dataset.caption
+            })),
+            ...standaloneImages.map((image) => ({
+                photo: image.currentSrc || image.src,
+                alt: image.alt,
+                caption: image.alt
+            }))
+        ];
         const viewer = document.getElementById('photoViewer');
         const viewerImage = document.getElementById('viewerImage');
         const viewerCaption = document.getElementById('viewerCaption');
@@ -634,11 +647,11 @@
         });
 
         function showPhoto(index) {
-            activePhoto = (index + photoButtons.length) % photoButtons.length;
-            const button = photoButtons[activePhoto];
-            viewerImage.src = button.dataset.photo;
-            viewerImage.alt = button.querySelector('img').alt;
-            viewerCaption.textContent = button.dataset.caption;
+            activePhoto = (index + photoItems.length) % photoItems.length;
+            const photo = photoItems[activePhoto];
+            viewerImage.src = photo.photo;
+            viewerImage.alt = photo.alt;
+            viewerCaption.textContent = photo.caption;
             zoomLevel = 1;
             viewerImage.style.transform = 'scale(1)';
         }
@@ -650,6 +663,19 @@
 
         photoButtons.forEach((button, index) => {
             button.addEventListener('click', () => {
+                showPhoto(index);
+                viewer.hidden = false;
+                document.body.classList.add('viewer-open');
+                requestAnimationFrame(() => viewer.classList.add('is-open'));
+            });
+        });
+
+        standaloneImages.forEach((image) => {
+            image.style.cursor = 'zoom-in';
+            image.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const index = photoItems.findIndex((photo) => photo.photo === (image.currentSrc || image.src));
                 showPhoto(index);
                 viewer.hidden = false;
                 document.body.classList.add('viewer-open');

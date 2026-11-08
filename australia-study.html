@@ -33,6 +33,12 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.story-spread img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
 .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
 .header-label { display:none; }
@@ -52,6 +58,16 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 <section class="story-spread"><figure class="spread-image"><img src="11.PNG" alt="Elaine 在澳洲海灘打排球的插畫" loading="lazy"></figure><div class="spread-copy"><p class="eyebrow">Chapter 02 · Beyond The Blue Mountains</p><h2>世界的美麗，也一直在自己身上</h2><p>在步道上，她遇到一位當地婆婆，每星期都來走這條路。兩位長者一見如故。婆婆問 Elaine 為甚麼還來讀書，Elaine 用廣東話細說自己半工半讀、在大學工作三十多年的故事。翻譯系的 Serena 在旁傳譯，連 Elaine 那份的語氣也譯得準確又自然。婆婆聽完握住 Elaine 的手，說自己也是七十歲才學會游泳！</p><p>夜裡，山上沒有街燈。讀電腦的阿豪很快弄了一個協助 Elaine 仰望天上星座的程式，替她找到南十字星。Elaine 抬頭看了很久，看來那種美在這剎那確實是看不到盡頭的。</p><p>那晚，她在旅館寫明信片。寫作系的 Ryan 問她寫給誰，她說寫給十六歲的自己：「想告訴她，你在此之後換了很多條路，但並不會後悔。」</p><p>最後一個週末，Elaine 走 Bondi 至 Coogee 的海岸步道。砂岩懸崖被海浪磨出一層層紋路，浪花拍上礁石，又慢慢退回去。走到一半，遠方海面忽然噴起一道白色水柱——是一條座頭鯨正向南遷徙。Elaine 停下腳步，看得出神。</p><p>走到盡頭，她坐在石階上曬太陽。「半退休唔係離開個世界，係有時間重新安排自己嘅生活。」她望著海說。澳洲確實是美不勝收，但 Elaine 在某一刻發現，世界的美麗也其實一直帶在自己身上。浪聲一陣接一陣，像在回應她。</p></div></section>
 <p class="chapter-end">澳洲站完 · 願陽光與海風，繼續陪她走下一段路</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#tour">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>

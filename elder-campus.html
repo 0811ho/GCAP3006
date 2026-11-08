@@ -32,6 +32,12 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.spread-image img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
  .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
  .header-label { display:none; }
@@ -50,6 +56,16 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 <section class="story-spread"><figure class="spread-image"><img src="3.png" alt="Elaine 在大學校園展開另一種生活的故事插畫"></figure><div class="spread-copy"><p class="eyebrow">1993年 · 校園工作</p><h2>《另一種大學生活》</h2><p>1993年，Elaine 加入香港科技大學擔任秘書，這一做，便是三十多年。年輕時未能如願享受的全日制大學生活，後來以另一種方式走近她。她以職員的身分走進校園，對學習的熱情則是從未減退。</p><p>辦公室裏，她向上司學習解決疑難，工餘時，她旁聽課程，更走進大學的體育館游泳和打網球，讓工作以外的日子充滿樂趣。談起這些機會，她滿懷感恩，覺得自己享用了不少學生都未必能享受的資源。</p><p>可是，校園的日子亦有風雨。亞洲金融危機期間，她經歷凍薪與減薪，沙士來襲，她與同事分組上班，在不安中適應防疫安排。</p><p>回望那些關卡，她記得當中的艱難，也記得日子終究一步步走過，這些一切磨練了她樂觀豁達的性格。她始終相信，無論難關多大，也終會過去。</p><p>信仰給她支持，校園則為她留下繼續探索的空間。當年的遺憾，漸漸與後來的滿足並存。這裏是她工作的地方，也是她另一種大學生活。</p></div></section>
 <p class="chapter-end">校園是她工作的地方，也是她重新探索世界的另一種大學生活</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#story">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>

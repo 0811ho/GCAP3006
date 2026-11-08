@@ -35,6 +35,12 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.story-spread img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
 .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
 .header-label { display:none; }
@@ -56,6 +62,16 @@ h1 span { display:block; color:var(--gold); font-size:.42em; letter-spacing:.2em
 <section class="story-spread"><div class="spread-copy"><p class="eyebrow">One Last Game</p><h2>陰天裡，也要活動活動筋骨</h2><p>哎呀，來了英國這麼多天，天空總是陰沉沉的。景色固然優美，卻總帶著幾分文學與藝術的氣息，好像不太合我的胃口。我實在想活動活動筋骨，於是便去了宿舍的健身室，打算好好伸展一番。我在櫃檯租了羽毛球拍，便開始物色對手。放眼望去，大家個個都高高大大，我哪裡打得過？</p><p>忽然，一位戴著眼鏡的華裔男生從我面前經過——這不就是最理想的對手嗎？我連忙上前叫住他：「你……Oh, would you like to play badminton with me?」心急之下，我一時忘了自己身在英國，開口便先說了句廣東話，接著才趕緊改用英文。</p><div class="dialogue"><p>「Oh, yes！講廣東話都得！我係香港人嚟！」</p></div><p>原來他叫豪仔，留著一頭清爽的短髮，穿著合身的運動服，手臂線條結實，一看就知道是個熱愛運動的人。我們打了幾局羽毛球，打得酣暢淋漓，痛快極了。</p><p>日子過得飛快，轉眼間，我又要收拾行裝，踏上下一段旅程了。</p></div><figure class="spread-image"><img src="7.JPG" alt="人物站在窗邊欣賞陽光與景色的水彩插畫" loading="lazy"></figure></section>
 <p class="chapter-end">英國站完 · 下一段旅程，將在澳洲展開</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#tour">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>

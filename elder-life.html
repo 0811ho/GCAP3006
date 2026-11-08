@@ -32,6 +32,12 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 .site-footer { padding:4rem 1.25rem; color:var(--brown); background:var(--page); border-top:1px solid var(--line); text-align:center; }
 .site-footer p { margin:0; }
 .footer-link { display:inline-block; margin-top:1.25rem; color:var(--gold); font-size:.9rem; }
+.spread-image img { cursor:zoom-in; }
+.image-viewer[hidden] { display:none; }
+.image-viewer { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:4rem 1.5rem; background:rgba(31,24,20,.94); opacity:0; transition:opacity .24s ease; }
+.image-viewer.is-open { opacity:1; }
+.image-viewer img { max-width:94vw; max-height:86vh; object-fit:contain; border-radius:.35rem; }
+.image-viewer-close { position:absolute; top:1.25rem; right:1.5rem; width:2.5rem; height:2.5rem; border:1px solid rgba(253,251,247,.35); border-radius:50%; color:var(--page); background:rgba(92,64,51,.85); cursor:pointer; font-size:1.75rem; line-height:1; }
 @media (max-width:760px) {
  .header-inner { width:min(100% - 1.5rem,72rem); min-height:3.75rem; }
  .header-label { display:none; }
@@ -50,6 +56,16 @@ h1 { width:100%; margin:.75rem auto 1.25rem; font-size:clamp(1.2rem,4vw,3.8rem);
 <section class="story-spread"><figure class="spread-image"><img src="4.png" alt="Elaine 在生活新步伐中繼續探索世界的故事插畫"></figure><div class="spread-copy"><p class="eyebrow">2024年 · 生活新步伐</p><h2>《步伐變了，好奇未減》</h2><p>原本，Elaine 打算提早退休，與朋友到英國、澳洲各遊學半年，彌補年輕時未有機會經歷的生活。然而，2024年確診癌症，打亂了她的計劃。治療帶來身體的不適，也讓她面對身體上的疼痛與未來的不確定。</p><p>然而，家人的照顧，同事與上司的支持，以及基督信仰帶來的力量，陪伴她逐漸調整生活。放慢步伐之後，她仍嘗試保留喜歡的事。行不了獅子山，就改行較容易的山，按身體狀況運動，也到沙灘曬曬太陽。</p><p>與年輕人交流時，她依然想知道大家正在接觸什麼，希望增廣見聞，不與世界脫節。英澳的旅程暫時未能成行，眼前的生活卻仍有值得探索的地方。</p><p>從童年那張擠迫的床褥，到後來的課堂與校園，再到職場，Elaine 一直學習。如今，步伐需要調整，但那份想認識世界多一點的心意，仍留在她的日常裏。</p></div></section>
 <p class="chapter-end">步伐可以調整 · 對世界的好奇與學習，仍然在日常裏繼續</p>
 </main>
+<div class="image-viewer" id="imageViewer" hidden><button class="image-viewer-close" type="button" aria-label="關閉圖片預覽">×</button><img id="imageViewerImage" src="" alt=""></div>
 <footer class="site-footer"><p>致 Elaine Chan 女士 · 歲月如歌．恩典足跡</p><a class="footer-link" href="index.html#story">返回紀念冊首頁</a></footer>
+<script>
+const imageViewer = document.getElementById('imageViewer');
+const imageViewerImage = document.getElementById('imageViewerImage');
+const closeImageViewer = () => { imageViewer.classList.remove('is-open'); setTimeout(() => { imageViewer.hidden = true; }, 240); };
+document.querySelectorAll('img').forEach((image) => image.addEventListener('click', () => { imageViewerImage.src = image.currentSrc || image.src; imageViewerImage.alt = image.alt; imageViewer.hidden = false; requestAnimationFrame(() => imageViewer.classList.add('is-open')); }));
+document.querySelector('.image-viewer-close').addEventListener('click', closeImageViewer);
+imageViewer.addEventListener('click', (event) => { if (event.target === imageViewer) closeImageViewer(); });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !imageViewer.hidden) closeImageViewer(); });
+</script>
 </body>
 </html>
